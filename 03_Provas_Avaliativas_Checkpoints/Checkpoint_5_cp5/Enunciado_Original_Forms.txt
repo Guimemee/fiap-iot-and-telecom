@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Internet das Coisas & Telecomunicações
+Turma 5ECS • Ano 2026
+Checkpoint 05: Criptografia e Segurança em Redes IoT: TLS 1.3 e DTLS em Hardware
+
+ENUNCIADO ORIGINAL:
+Analisar o impacto computacional, overhead de memória RAM/Flash e tempo de conexão do aperto de mão (Handshake) criptográfico utilizando TLS 1.3 sobre TCP e DTLS 1.2 sobre UDP em um microcontrolador de 32 bits rodando mbedTLS com e sem suporte a acelerador criptográfico de hardware (Hardware Cryptographic Accelerator).

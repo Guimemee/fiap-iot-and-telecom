@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Internet das Coisas & Telecomunicações
+Turma 5ECS • Ano 2026
+Checkpoint 04: Plataformas IoT em Nuvem, Ingestão Massiva e Séries Temporais
+
+ENUNCIADO ORIGINAL:
+Dimensionar a arquitetura de ingestão de dados em nuvem para processamento de telemetria de 50.000 nós sensores transmitindo mensagens JSON de 128 bytes a cada 10 segundos. Dimensionar a capacidade do Message Broker (AWS IoT Core / Azure IoT Hub / EMQX), o particionamento do banco de séries temporais (InfluxDB / TimescaleDB) e a largura de banda de entrada requerida.

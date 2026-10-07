@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Internet das Coisas & Telecomunicações
+Turma 5ECS • Ano 2026
+Checkpoint 06: Redes Móveis 5G, Arquitetura Standalone (SA) e Fatiamento de Rede
+
+ENUNCIADO ORIGINAL:
+Dimensionar os parâmetros de uma rede privada 5G Standalone (5G SA) com computação de borda (Multi-Access Edge Computing - MEC) operando em onda milimétrica (FR2 a 28 GHz) para controle de veículos autônomos industriais (AGVs). Configurar o fatiamento de rede (Network Slicing) garantindo isolamento da fatia URLLC (Ultra-Reliable Low-Latency Communication) com confiabilidade 99,999% e latência máxima de 1 ms.

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIAP • Internet das Coisas & Telecomunicações | Turma 5ECS • 2026</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    :root {
+      --bg-dark: #100d22;
+      --bg-card: #181436;
+      --bg-surface: #241f4d;
+      --border: #3a3275;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --primary: #8b5cf6;
+      --secondary: #6366f1;
+      --accent: #a78bfa;
+      --radius: 12px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    [id] { scroll-margin-top: 95px; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(10, 14, 23, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 10px 24px;
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .header-row-1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-row-1 .brand-fiap {
+      color: var(--primary);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .header-row-2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .turma-tag {
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn-repo-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 5px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-repo-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero-banner {
+      margin-bottom: 32px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--primary);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-item {
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+    }
+
+    .nav-item:hover, .nav-item:focus {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .cp-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--primary);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .problem-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .box-header {
+      background: rgba(255,255,255,0.03);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .box-content {
+      padding: 20px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .formula-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .formula-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .formula-latex {
+      font-size: 1.2rem;
+      color: #ffffff;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .symbolab-container {
+      margin-bottom: 28px;
+    }
+
+    .symbolab-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .step-card:hover {
+      transform: translateX(4px);
+      border-color: var(--primary);
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .plot-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .plot-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .plot-img-container {
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      background: #00000022;
+    }
+
+    .plot-img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 32px 24px;
+      text-align: center;
+      margin-top: 60px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 16px;
+      }
+      .header-row-1 {
+        font-size: 0.95rem;
+      }
+      .turma-tag {
+        font-size: 0.78rem;
+        padding: 2px 8px;
+      }
+      .btn-repo-top {
+        font-size: 0.78rem;
+        padding: 4px 10px;
+      }
+      body {
+        padding-top: 75px;
+      }
+      .container {
+        padding: 16px;
+      }
+      .cp-section {
+        padding: 20px 16px;
+      }
+      .section-title {
+        font-size: 1.25rem;
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="header-row-1">
+        <span class="brand-fiap">FIAP</span> • Engenharia da Computação
+      </div>
+      <div class="header-row-2">
+        <span class="turma-tag">TURMA 5ECS • 2026</span>
+        <a href="https://github.com/Guimemee/fiap-iot-and-telecom" class="btn-repo-top" target="_blank" rel="noopener">
+          <span>Ver Repositório</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero-banner">
+      <img src="card_technologies.svg" alt="FIAP • Internet das Coisas & Telecomunicações - 5ECS 2026" />
+    </div>
+
+    <div class="metrics-grid">
+      
+        <div class="metric-card">
+          <div class="metric-label">ALCANCE LPWAN</div>
+          <div class="metric-val">15 KM (SUB-GHZ)</div>
+          <div class="metric-sub">LoRaWAN Spreading Factor SF12</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">OVERHEAD DE PROTOCOLO</div>
+          <div class="metric-val">4 BYTES (CoAP UDP)</div>
+          <div class="metric-sub">88% Mais Leve que HTTP/REST</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">ORÇAMENTO DE ENLACE</div>
+          <div class="metric-val">148 dB MARGEM</div>
+          <div class="metric-sub">Equação de Propagação de Friis</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">LATÊNCIA 5G URLLC</div>
+          <div class="metric-val">< 1 MILISSEGUNDO</div>
+          <div class="metric-sub">Missão Crítica e Edge Computing</div>
+        </div>
+    </div>
+
+    <nav class="nav-tabs" aria-label="Navegação de Checkpoints">
+      <a href="#cp1" class="nav-item">CP1</a><a href="#cp2" class="nav-item">CP2</a><a href="#cp3" class="nav-item">CP3</a><a href="#cp4" class="nav-item">CP4</a><a href="#cp5" class="nav-item">CP5</a><a href="#cp6" class="nav-item">CP6</a>
+    </nav>
+
+    
+      <section id="cp1" class="cp-section">
+        <div class="section-badge">CHECKPOINT 01 • 5ECS 2026</div>
+        <h2 class="section-title">Arquiteturas de Telecomunicações e Tecnologias de Redes LPWAN</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp1')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp1" class="box-content">
+            <p>Comparar as características técnicas e operacionais das tecnologias de rede de longa distância e baixo consumo (LPWAN): LoRaWAN, NB-IoT e Sigfox. Analisar banda de frequência de operação (Sub-GHz ISM vs Celular Licenciado), modulação (CSS vs DSSS vs UNB), alcance em ambientes rurais/urbanos e capacidade de payload por mensagem.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$R_b = \text{SF} \cdot \frac{\text{BW}}{2^{\text{SF}}} \cdot \text{CR}, \quad \text{Sensibilidade} = -174 + 10\log_{10}(\text{BW}) + \text{NF} + \text{SNR}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Espectro e Regulação Anatel</span>
+              </div>
+              <div class="step-content">
+                <p>No Brasil, o LoRaWAN opera na banda ISM não licenciada de 915-928 MHz (AU915), o Sigfox em 920 MHz e o NB-IoT em bandas licenciadas de operadoras celulares (Band 28 em 700 MHz).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Modulação Chirp Spread Spectrum (CSS) no LoRa</span>
+              </div>
+              <div class="step-content">
+                <p>O fator de espalhamento (Spreading Factor - SF) varia de SF7 a SF12. Com maior SF, a taxa de dados diminui, mas a sensibilidade do receptor melhora drasticamente até -137 dBm.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Cálculo da Taxa de Dados para SF7 e SF12</span>
+              </div>
+              <div class="step-content">
+                <p>Para BW = 125 kHz e Coding Rate CR = 4/5: Para SF7: R_b = 7 \times \frac{125000}{128} \times 0,8 \approx 5,47\text{ kbps}. Para SF12: R_b = 12 \times \frac{125000}{4096} \times 0,8 \approx 0,293\text{ kbps} (293 bps).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Capacidade de Carga Útil e Limites de Duty Cycle</span>
+              </div>
+              <div class="step-content">
+                <p>Sigfox limitado a 12 bytes e 140 mensagens/dia; LoRaWAN suporta payloads de até 242 bytes (SF7); NB-IoT suporta pacotes de até 1600 bytes com taxa de até 200 kbps.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Aplicação Industrial</span>
+              </div>
+              <div class="step-content">
+                <p>Para sensores fabris e de agronegócio distribuídos sem infraestrutura celular, o LoRaWAN com gateway privado oferece o menor custo total de propriedade (TCO).</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_1_cp1/grafico_resolucao.png" alt="Gráfico Arquiteturas de Telecomunicações e Tecnologias de Redes LPWAN" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp2" class="cp-section">
+        <div class="section-badge">CHECKPOINT 02 • 5ECS 2026</div>
+        <h2 class="section-title">Protocolos Leves de Transporte de Mensagens: MQTT vs. CoAP</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp2')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp2" class="box-content">
+            <p>Implementar e comparar o desempenho de rede e overhead de cabeçalho entre os protocolos de aplicação IoT: MQTT (baseado em TCP e arquitetura Publish/Subscribe) e CoAP (Constrained Application Protocol, baseado em UDP e RESTful Request/Response). Analisar os níveis de garantia de entrega de serviço QoS 0, 1 e 2 no MQTT e mensagens Confirmable (CON) no CoAP.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Eficiência} = \frac{\text{Payload Útil}}{\text{Payload Útil} + \text{Overhead Cabeçalhos}} \times 100\%$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Arquitetura de Camada de Transporte</span>
+              </div>
+              <div class="step-content">
+                <p>MQTT utiliza TCP garantindo confiabilidade por fluxo ordenado, exigindo handshake de 3 vias (SYN, SYN-ACK, ACK) e keep-alive periódico. CoAP utiliza UDP com cabeçalho ultra-compacto de apenas 4 bytes fixos.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Análise de Overhead de Bytes por Mensagem</span>
+              </div>
+              <div class="step-content">
+                <p>Para um dado útil de 20 bytes: MQTT requer cabeçalho fixo (2B) + cabeçalho de tópico (ex: 14B) + TCP (20B) + IP (20B) = 56 bytes totais. CoAP requer cabeçalho CoAP (4B) + UDP (8B) + IP (20B) = 32 bytes totais.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Comparação de Eficiência de Banda</span>
+              </div>
+              <div class="step-content">
+                <p>Eficiência MQTT = \frac{20}{56} \approx 35,7\%. Eficiência CoAP = \frac{20}{32} \approx 62,5\%. O CoAP é 75% mais eficiente no uso de bytes transmitidos pelo rádio.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Qualidade de Serviço (QoS) e Resiliência</span>
+              </div>
+              <div class="step-content">
+                <p>No MQTT: QoS 0 (no máximo uma vez), QoS 1 (pelo menos uma vez com PUBACK) e QoS 2 (exatamente uma vez com handshake de 4 mensagens). No CoAP: Mensagens Confirmable exigem ACK; Non-confirmable operam sem retorno.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Diretriz de Escolha de Engenharia</span>
+              </div>
+              <div class="step-content">
+                <p>MQTT é ideal para comunicação com brokers em nuvem e dispositivos permanentemente conectados à internet; CoAP é ideal para dispositivos ultra-restritos a bateria com sono profundo constante.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_2_cp2/grafico_resolucao.png" alt="Gráfico Protocolos Leves de Transporte de Mensagens: MQTT vs. CoAP" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp3" class="cp-section">
+        <div class="section-badge">CHECKPOINT 03 • 5ECS 2026</div>
+        <h2 class="section-title">Propagação Eletromagnética, Antenas e Orçamento de Enlace (Link Budget)</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp3')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp3" class="box-content">
+            <p>Calcular o orçamento de enlace (Link Budget) e o alcance máximo de comunicação para um enlace de rádio LoRa na frequência de 915 MHz no espaço livre utilizando a Equação de Friis. O transmissor possui potência Pt = +14 dBm e ganho de antena Gt = +2 dBi; o receptor possui ganho Gr = +3 dBi e sensibilidade de recepção Pr_min = -137 dBm. Considerar margem de desvanecimento (Fade Margin) de 15 dB e perdas em conectores/cabos de 2 dB.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$P_{rx} = P_{tx} + G_{tx} + G_{rx} - \text{FSPL} - L_{\text{outros}}, \quad \text{FSPL}(\text{dB}) = 20\log_{10}(d) + 20\log_{10}(f) + 32,44$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Cálculo da Atenuação Máxima Permitida (Path Loss Máximo)</span>
+              </div>
+              <div class="step-content">
+                <p>Equação de balanço: \text{FSPL}_{max} = P_{tx} + G_{tx} + G_{rx} - P_{rx\_min} - L_{cabos} - \text{Margem}. Substituindo: \text{FSPL}_{max} = 14 + 2 + 3 - (-137) - 2 - 15 = 139\text{ dB}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Fórmula da Perda em Espaço Livre (FSPL)</span>
+              </div>
+              <div class="step-content">
+                <p>Para frequência f em MHz (915 MHz) e distância d em quilômetros: \text{FSPL} = 20\log_{10}(d) + 20\log_{10}(915) + 32,44 = 20\log_{10}(d) + 59,23 + 32,44 = 20\log_{10}(d) + 91,67\text{ dB}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Igualação e Isolamento da Distância d</span>
+              </div>
+              <div class="step-content">
+                <p>Temos 20\log_{10}(d) + 91,67 = 139 \implies 20\log_{10}(d) = 139 - 91,67 = 47,33\text{ dB}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Resolução Logarítmica do Raio de Alcance</span>
+              </div>
+              <div class="step-content">
+                <p>\log_{10}(d) = \frac{47,33}{20} \approx 2,3665 \implies d = 10^{2,3665} \approx 232,5\text{ km} em condições ideais de linha de visada (LOS puro em espaço livre).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Correção para Ambiente Terrestre (Modelo Hata / Okumura)</span>
+              </div>
+              <div class="step-content">
+                <p>Em relevo urbano e industrial com obstruções e desvanecimento por múltiplos percursos, o expoente de perda sobe de n=2 para n=3,5 a 4, resultando em alcance prático de 12 a 18 km.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_3_cp3/grafico_resolucao.png" alt="Gráfico Propagação Eletromagnética, Antenas e Orçamento de Enlace (Link Budget)" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp4" class="cp-section">
+        <div class="section-badge">CHECKPOINT 04 • 5ECS 2026</div>
+        <h2 class="section-title">Plataformas IoT em Nuvem, Ingestão Massiva e Séries Temporais</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp4')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp4" class="box-content">
+            <p>Dimensionar a arquitetura de ingestão de dados em nuvem para processamento de telemetria de 50.000 nós sensores transmitindo mensagens JSON de 128 bytes a cada 10 segundos. Dimensionar a capacidade do Message Broker (AWS IoT Core / Azure IoT Hub / EMQX), o particionamento do banco de séries temporais (InfluxDB / TimescaleDB) e a largura de banda de entrada requerida.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Taxa Mensagens} = \frac{N_{\text{dispositivos}}}{T_{\text{envio}}}, \quad \text{Throughput (MB/s)} = \frac{\text{Taxa Mensagens} \cdot \text{Tamanho (bytes)}}{10^6}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Taxa Média de Ingestão de Mensagens</span>
+              </div>
+              <div class="step-content">
+                <p>Com 50.000 dispositivos enviando a cada 10 segundos: Taxa = \frac{50.000}{10} = 5.000\text{ mensagens por segundo} (MPS).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Throughput de Rede Requerido</span>
+              </div>
+              <div class="step-content">
+                <p>Tamanho do payload de 128 bytes: Throughput = 5.000 \times 128\text{ B/s} = 640.000\text{ B/s} = 640\text{ KB/s} (\approx 5,12\text{ Mbps}). Largura de banda moderada e facilmente sustentável.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Volume Diário de Armazenamento em Disco</span>
+              </div>
+              <div class="step-content">
+                <p>Mensagens por dia: 5.000 \times 86.400 = 432.000.000\text{ mensagens/dia}. Volume bruto diário: 432\times 10^6 \times 128\text{ B} \approx 55,3\text{ GB/dia}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Otimização e Compressão em Banco Time-Series</span>
+              </div>
+              <div class="step-content">
+                <p>Com bancos especializados em séries temporais (TimescaleDB / InfluxDB Gorilla Compression), a taxa de compressão típica de 85% reduz o volume armazenado para apenas 8,3 GB/dia.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Estratégia de Particionamento (Chunking)</span>
+              </div>
+              <div class="step-content">
+                <p>Particionamento de tabelas em chunks temporais de 24 horas indexados por Device_ID e Timestamp, permitindo expurgo automático (Data Retention Policy) após 90 dias sem travar o motor SQL.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_4_cp4/grafico_resolucao.png" alt="Gráfico Plataformas IoT em Nuvem, Ingestão Massiva e Séries Temporais" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp5" class="cp-section">
+        <div class="section-badge">CHECKPOINT 05 • 5ECS 2026</div>
+        <h2 class="section-title">Criptografia e Segurança em Redes IoT: TLS 1.3 e DTLS em Hardware</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp5')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp5" class="box-content">
+            <p>Analisar o impacto computacional, overhead de memória RAM/Flash e tempo de conexão do aperto de mão (Handshake) criptográfico utilizando TLS 1.3 sobre TCP e DTLS 1.2 sobre UDP em um microcontrolador de 32 bits rodando mbedTLS com e sem suporte a acelerador criptográfico de hardware (Hardware Cryptographic Accelerator).</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$t_{\text{handshake}} = t_{\text{rede}} \cdot \text{RTT} + t_{\text{cripto}}, \quad \text{Aceleração Hardware} \approx 6\text{ a }10\times$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Handshake em TLS 1.3 vs TLS 1.2</span>
+              </div>
+              <div class="step-content">
+                <p>O TLS 1.3 reduziu o handshake para 1-RTT (Round Trip Time), cortando pela metade o tempo de espera de rede em comparação aos 2-RTTs exigidos no TLS 1.2.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Custo Computacional de Curvas Elípticas (ECDHE)</span>
+              </div>
+              <div class="step-content">
+                <p>A geração de chaves efêmeras e cálculo do segredo compartilhado via ECDH Curve25519 ou secp256r1 consome milhões de ciclos de instrução do núcleo da CPU se implementada em software puro.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Comparação com Acelerador de Hardware Criptográfico</span>
+              </div>
+              <div class="step-content">
+                <p>Emulação por software puro em 80 MHz: Cálculo da chave = 245 ms; hash SHA-256 = 18 ms. Com acelerador de hardware por DMA: Cálculo da chave = 28 ms; hash SHA-256 = 1,4 ms.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Análise do DTLS sobre UDP em Redes Instáveis</span>
+              </div>
+              <div class="step-content">
+                <p>O Datagram Transport Layer Security (DTLS) adiciona número de sequência explícito e mecanismo de retransmissão interna para lidar com pacotes perdidos ou fora de ordem sem travar o canal.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Segurança e Consumo Energético</span>
+              </div>
+              <div class="step-content">
+                <p>O uso de acelerador criptográfico em hardware reduz a drenagem de energia em 88% durante o handshake, viabilizando conexões seguras de nível bancário em dispositivos alimentados a bateria.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_5_cp5/grafico_resolucao.png" alt="Gráfico Criptografia e Segurança em Redes IoT: TLS 1.3 e DTLS em Hardware" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp6" class="cp-section">
+        <div class="section-badge">CHECKPOINT 06 • 5ECS 2026</div>
+        <h2 class="section-title">Redes Móveis 5G, Arquitetura Standalone (SA) e Fatiamento de Rede</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp6')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp6" class="box-content">
+            <p>Dimensionar os parâmetros de uma rede privada 5G Standalone (5G SA) com computação de borda (Multi-Access Edge Computing - MEC) operando em onda milimétrica (FR2 a 28 GHz) para controle de veículos autônomos industriais (AGVs). Configurar o fatiamento de rede (Network Slicing) garantindo isolamento da fatia URLLC (Ultra-Reliable Low-Latency Communication) com confiabilidade 99,999% e latência máxima de 1 ms.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Disponibilidade URLLC} \ge 1 - 10^{-5} = 99,999\%, \quad \text{Latência Interface Aérea} \le 0,5 \text{ ms}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Pilares do 5G e Seleção da Fatiamento</span>
+              </div>
+              <div class="step-content">
+                <p>O 5G divide o espectro em 3 pilares: eMBB (Banda Larga Móvel Aumentada), mMTC (Comunicações Massivas Tipo Máquina) e URLLC (Comunicações Ultra-Confiáveis de Baixa Latência). AGVs industriais demandam URLLC.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Redução do Tempo de Intervalo de Transmissão (TTI)</span>
+              </div>
+              <div class="step-content">
+                <p>No LTE 4G, o subquadro padrão tem duração fixa de 1 ms. No 5G NR com espaçamento de subportadoras (SCS) expandido para 60 kHz ou 120 kHz, o slot dura apenas 0,25 ms ou 0,125 ms, permitindo mini-slots de altíssima velocidade.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Arquitetura MEC no Ponto de Acesso Local</span>
+              </div>
+              <div class="step-content">
+                <p>Instalação do plano de controle do usuário (UPF - User Plane Function) e servidores de inferência na própria subestação fabril, eliminando a viagem de dados (Backhaul) até a nuvem pública e garantindo latência RTT < 3 ms.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Garantia de Confiabilidade com Diversidade Espacial</span>
+              </div>
+              <div class="step-content">
+                <p>MIMO Massivo e transmissão redundante de pacotes críticos em portadoras duplas garantem que a probabilidade de falha por pacote permaneça abaixo de 10^{-5}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Eficiência Operacional</span>
+              </div>
+              <div class="step-content">
+                <p>Eliminação completa de cabeamentos físicos e cabos umbilicais, permitindo reconfiguração dinâmica em minutos de rotas de frotas de 60 robôs industriais móveis.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_6_cp6/grafico_resolucao.png" alt="Gráfico Redes Móveis 5G, Arquitetura Standalone (SA) e Fatiamento de Rede" loading="lazy" />
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p><strong>FIAP • Faculdade de Informática e Administração Paulista</strong></p>
+    <p>Bacharelado em Engenharia da Computação • Turma 5ECS (2026) • Desafio: Smart Industry & Startups (Exoesqueleto Assistivo & Manufatura)</p>
+    <p>Acervo mantido por <a href="https://github.com/Guimemee" target="_blank" rel="noopener">Guilherme Macário da Silva (@Guimemee)</a></p>
+  </footer>
+
+  <script>
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText || el.textContent;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Enunciado copiado com sucesso para a área de transferência!');
+        }).catch(err => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+
+      function fallbackCopy(val) {
+        const ta = document.createElement('textarea');
+        ta.value = val;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('Enunciado copiado!');
+      }
+    }
+  </script>
+</body>
+</html>

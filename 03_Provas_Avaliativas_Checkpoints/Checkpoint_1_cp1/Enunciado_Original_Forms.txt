@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Internet das Coisas & Telecomunicações
+Turma 5ECS • Ano 2026
+Checkpoint 01: Arquiteturas de Telecomunicações e Tecnologias de Redes LPWAN
+
+ENUNCIADO ORIGINAL:
+Comparar as características técnicas e operacionais das tecnologias de rede de longa distância e baixo consumo (LPWAN): LoRaWAN, NB-IoT e Sigfox. Analisar banda de frequência de operação (Sub-GHz ISM vs Celular Licenciado), modulação (CSS vs DSSS vs UNB), alcance em ambientes rurais/urbanos e capacidade de payload por mensagem.

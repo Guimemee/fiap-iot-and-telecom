@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Internet das Coisas & Telecomunicações
+Turma 5ECS • Ano 2026
+Checkpoint 02: Protocolos Leves de Transporte de Mensagens: MQTT vs. CoAP
+
+ENUNCIADO ORIGINAL:
+Implementar e comparar o desempenho de rede e overhead de cabeçalho entre os protocolos de aplicação IoT: MQTT (baseado em TCP e arquitetura Publish/Subscribe) e CoAP (Constrained Application Protocol, baseado em UDP e RESTful Request/Response). Analisar os níveis de garantia de entrega de serviço QoS 0, 1 e 2 no MQTT e mensagens Confirmable (CON) no CoAP.
